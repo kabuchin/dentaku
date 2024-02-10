@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>電卓アプリケーション</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 700px; /* 上部に余白を追加 */
+  margin-bottom: 50px; /* 下部に余白を追加 */
+}
+
+h1, h2 {
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* 電卓アプリに戻るボタンのスタイル */
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #007BFF;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+/* ヘッダーのスタイル */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* コピーライトのスタイル */
+.copyright {
+  text-align: center;
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>電卓アプリ</h1>
+<a href="calculator.html" class="back-button">電卓アプリに戻る</a> <!-- 電卓アプリに戻るボタンを追加 -->
+</div>
+<p>この電卓アプリケーションでは、基本的な算術演算だけでなく、幾つかの高度な機能も利用できます。以下に主な機能とショートカットキーをまとめました。</p>
+
+<h2>主な機能</h2>
+<ul>
+<li>数値入力: 数字ボタン（0から9）をクリックすると、その数値が入力フィールドに追加されます。</li>
+<li>演算子入力: 演算子ボタン（+、-、×、÷）をクリックすると、その演算子が入力フィールドに追加されます。</li>
+<li>関数入力: 関数ボタン（√、sin、cos、tan、log、x²、x³）をクリックすると、その関数が入力フィールドに追加されます。関数を使用する際は、関数名の後に数値を入れるカギ括弧が必要です（例：√(2)）。また、2√2のような計算を行う際には、2×√(2)のように表記してください。</li>
+<li>計算結果の表示: =ボタンをクリックすると、入力フィールドの数式が評価され、その結果が入力フィールドに表示されます。</li>
+<li>計算結果のコピー: Copyボタンをクリックすると、計算結果がクリップボードにコピーされます。</li>
+<li>キーボード入力のサポート: このアプリケーションはキーボード入力にも対応しています。数字キーを押すと、その数字が入力フィールドに追加されます。また、演算子キーを押すと、その演算子が入力フィールドに追加されます。Enterキーを押すと計算結果が表示され、Backspaceキーを押すと入力がクリアされます。</li>
+</ul>
+
+<h2>ショートカットキー</h2>
+<table>
+<tr>
+<th>ショートカットキー</th>
+<th>機能</th>
+</tr>
+<tr>
+<td>Shift+S</td>
+<td>sin関数</td>
+</tr>
+<tr>
+<td>Shift+C</td>
+<td>cos関数</td>
+</tr>
+<tr>
+<td>Shift+T</td>
+<td>tan関数</td>
+</tr>
+<tr>
+<td>Shift+L</td>
+<td>log関数</td>
+</tr>
+<tr>
+<td>Shift+R</td>
+<td>平方根（√）</td>
+</tr>
+<tr>
+<td>c</td>
+<td>計算結果のコピー</td>
+</tr>
+<tr>
+<td>Shift+2</td>
+<td>2乗</td>
+</tr>
+<tr>
+<td>Shift+3</td>
+<td>3乗</td>
+</tr>
+<tr>
+<td>Shift+4</td>
+<td>4乗</td>
+</tr>
+<tr>
+<td>Shift+5</td>
+<td>5乗</td>
+</tr>
+<tr>
+<td>Shift+6</td>
+<td>6乗</td>
+</tr>
+<tr>
+<td>Shift+7</td>
+<td>7乗</td>
+</tr>
+<tr>
+<td>Shift+8</td>
+<td>8乗</td>
+</tr>
+<tr>
+<td>Shift+9</td>
+<td>9乗</td>
+</tr>
+</table>
+<p>Copyright© kabuchin All rights reserved.</p> <!-- コピーライト表記を追加 -->
+</div>
+</body>
+</html>
