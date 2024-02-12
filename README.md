@@ -1,0 +1,1 @@
+このコードはHTML、CSS、JavaScriptを使用しており、JavaScriptの一部ではeval関数を使用して数式の計算を行っています。
