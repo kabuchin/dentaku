@@ -2,197 +2,204 @@
 <html>
 <head>
   <link rel="icon" href="icon.ico" type="image/x-icon" />
-<title>電卓アプリ</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-}
-#calculator {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-}
-#result {
-    width: 100%;
-    height: 100px; /* 計算結果の欄の高さを大きくしました */
-    text-align: right;
-    margin-bottom: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 2em; /* 計算結果の文字サイズを大きくしました */
-}
-button {
-    width: 20%;
-    height: 50px;
-    margin: 1%;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-}
-#equals {
-    background-color: #1c87c9;
-    color: white;
-}
-#clear {
-    background-color: #f44336;
-    color: white;
-}
-</style>
+  <title>電卓アプリ</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+        overflow-x: auto; /* 横方向にスクロールできるように設定 */
+    }
+    #calculator {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+    }
+    #result {
+        width: calc(100% - 22px); /* ボーダーの分を引いて横幅を計算 */
+        height: 100px;
+        text-align: right;
+        margin-bottom: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 2em;
+        overflow-x: auto; /* 横方向にスクロールできるように設定 */
+    }
+    button {
+        width: 20%;
+        height: 50px;
+        margin: 1%;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    }
+    #equals {
+        background-color: #1c87c9;
+        color: white;
+    }
+    #clear {
+        background-color: #f44336;
+        color: white;
+    }
+  </style>
 </head>
 <body>
-<div id="calculator">
-<input type="text" id="result" readonly><button id="copy" onclick="copyResult()">Copy</button>
-<br/>
-<button onclick="appendOperator('Math.sqrt(')">√</button>
-<button onclick="appendOperator('Math.sin(')">sin</button>
-<button onclick="appendOperator('Math.cos(')">cos</button>
-<button onclick="appendOperator('Math.tan(')">tan</button>
-<button onclick="appendOperator('Math.log(')">log</button>
-<button onclick="appendOperator('^2')">x²</button>
-<button onclick="appendOperator('^3')">x³</button>
-<button onclick="appendOperator(')')">)</button>
-<br/>
-<button onclick="appendNumber('7')">7</button>
-<button onclick="appendNumber('8')">8</button>
-<button onclick="appendNumber('9')">9</button>
-<button onclick="appendOperator('/')">÷</button>
-<br/>
-<button onclick="appendNumber('4')">4</button>
-<button onclick="appendNumber('5')">5</button>
-<button onclick="appendNumber('6')">6</button>
-<button onclick="appendOperator('*')">×</button>
-<br/>
-<button onclick="appendNumber('1')">1</button>
-<button onclick="appendNumber('2')">2</button>
-<button onclick="appendNumber('3')">3</button>
-<button onclick="appendOperator('-')">−</button>
-<br/>
-<button onclick="appendNumber('0')">0</button>
-<button id="clear" onclick="clearInput()">C</button>
-<button id="equals" onclick="calculateResult()">=</button>
-<button onclick="appendOperator('+')">+</button>
-<p style="font-size: small;">注意: 関数を使用する際は、関数名の後に数値を入れるカギ括弧が必要です（例：√(2)）。また、2√2のような計算を行う際には、2×√(2)のように表記してください。<br><a href="./explain/">電卓の説明を読む</a>
-</p>
-<p style="font-size: small; text-align: right;">Copyright© <a href="https://23o7.site/">Kabuchin</a> All rights reserved.</p>
-</div>
-<script>
-var input = document.getElementById('result');
+  <div id="calculator">
+    <input type="text" id="result" readonly><button id="copy" onclick="copyResult()">Copy</button>
+    <br/>
+    <button onclick="appendOperator('Math.sqrt(')">√</button>
+    <button onclick="appendOperator('Math.sin(')">sin</button>
+    <button onclick="appendOperator('Math.cos(')">cos</button>
+    <button onclick="appendOperator('Math.tan(')">tan</button>
+    <button onclick="appendOperator('Math.log(')">log</button>
+    <button onclick="appendOperator('^2')">x²</button>
+    <button onclick="appendOperator('^3')">x³</button>
+    <button onclick="appendOperator(')')">)</button>
+    <br/>
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button onclick="appendOperator('/')">÷</button>
+    <br/>
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button onclick="appendOperator('*')">×</button>
+    <br/>
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button onclick="appendOperator('-')">−</button>
+    <br/>
+    <button onclick="appendNumber('0')">0</button>
+    <button id="clear" onclick="clearInput()">C</button>
+    <button id="equals" onclick="handleEquals()">=</button>
+    <button onclick="appendOperator('+')">+</button>
+    <p style="font-size: small;">注意: 関数を使用する際は、関数名の後に数値を入れるカギ括弧が必要です（例：√(2)）。また、2√2のような計算を行う際には、2×√(2)のように表記してください。<br><a href="./explain/">電卓の説明を読む</a>
+    </p>
+    <p style="font-size: small; text-align: right;">Copyright© <a href="https://23o7.site/">Kabuchin</a> All rights reserved.</p>
+  </div>
+  <script>
+    var input = document.getElementById('result');
 
-function appendNumber(number) {
-  input.value += number;
-}
+    function appendNumber(number) {
+      input.value += number;
+    }
 
-function appendOperator(operator) {
-  input.value += operator;
-}
+    function appendOperator(operator) {
+      if (operator === 'Math.sqrt(' || operator === 'Math.sin(' || operator === 'Math.cos(' || operator === 'Math.tan(' || operator === 'Math.log(') {
+        input.value += operator;
+      } else if (operator === '^2' || operator === '^3') {
+        input.value += '**' + operator.slice(1);
+      } else {
+        if (input.value.slice(-1) !== '+' && input.value.slice(-1) !== '-' && input.value.slice(-1) !== '*' && input.value.slice(-1) !== '/' && input.value.slice(-1) !== '(' && input.value.slice(-1) !== ')') {
+          input.value += operator;
+        }
+      }
+    }
 
-function clearInput() {
-  input.value = '';
-}
+    function clearInput() {
+      input.value = '';
+    }
 
-function calculateResult() {
-  try {
-    var result = eval(input.value.replace('^2', '**2').replace('^3', '**3'));
-    input.value = result;
-  } catch {
-    input.value = 'エラー';
-  }
-}
+    function calculateResult() {
+      try {
+        var expression = input.value;
+        if (expression.slice(-1) === '+' || expression.slice(-1) === '-' || expression.slice(-1) === '*' || expression.slice(-1) === '/') {
+          throw new SyntaxError('Unexpected end of input');
+        }
+        if (expression.includes('√')) {
+          expression = expression.replace(/√/g, 'Math.sqrt(') + ')';
+        }
+        var result = eval(expression.replace('^2', '**2').replace('^3', '**3'));
+        input.value = result;
+      } catch (error) {
+        input.value = 'エラー: ' + error.message;
+      }
+    }
 
-// 計算結果をクリップボードにコピーする関数を追加
-function copyResult() {
-  navigator.clipboard.writeText(input.value).then(function() {
-    /* clipboard successfully set */
-  }, function() {
-    /* clipboard write failed */
-  });
-}
+    function copyResult() {
+      navigator.clipboard.writeText(input.value).then(function() {
+      }, function() {
+      });
+    }
 
-// キーボード入力に対応するためのコードを追加
-document.addEventListener('keydown', function(event) {
-  var key = event.key;  // 押されたキーを取得
-  var shift = event.shiftKey; // Shiftキーが押されているかを取得
-  if (!isNaN(key)) {
-    // 数字キーが押された場合
-    appendNumber(key);
-  } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-    // 演算子キーが押された場合
-    appendOperator(key);
-  } else if (key === ':') {
-    // :キーが押された場合
-    appendOperator('*');
-  } else if (key === ';') {
-    // ;キーが押された場合
-    appendOperator('+');
-  } else if (key === '/') {
-    // /キーが押された場合
-    appendOperator('/');
-  } else if (key === 'ー') {
-    // ーキーが押された場合
-    appendOperator('-');
-  } else if (key === 'Enter') {
-    // Enterキーが押された場合
-    calculateResult();
-  } else if (key === 'Backspace') {
-    // Backspaceキーが押された場合
-    clearInput();
-  } else if (key === 'c') {
-    // cキーが押された場合
-    copyResult();
-  } else if (shift && key === 'S') {
-    // Shift+Sが押された場合
-    appendOperator('Math.sin(');
-  } else if (shift && key === 'C') {
-    // Shift+Cが押された場合
-    appendOperator('Math.cos(');
-  } else if (shift && key === 'T') {
-    // Shift+Tが押された場合
-    appendOperator('Math.tan(');
-  } else if (shift && key === 'L') {
-    // Shift+Lが押された場合
-    appendOperator('Math.log(');
-  } else if (shift && key === 'R') {
-    // Shift+Rが押された場合
-    appendOperator('Math.sqrt(');
-  } else if (shift && key === '"') {
-    // Shift+2が押された場合
-    appendOperator('**2');
-  } else if (shift && key === '#') {
-    // Shift+3が押された場合
-    appendOperator('**3');
-  } else if (shift && key === '$') {
-    // Shift+4が押された場合
-    appendOperator('**4');
-  } else if (shift && key === '%') {
-    // Shift+5が押された場合
-    appendOperator('**5');
-  } else if (shift && key === '&') {
-    // Shift+6が押された場合
-    appendOperator('**6');
-  } else if (shift && key === "'") {
-    // Shift+7が押された場合
-    appendOperator('**7');
-  } else if (shift && key === '(') {
-    // Shift+8が押された場合
-    appendOperator('**8');
-  } else if (shift && key === ')') {
-    // Shift+9が押された場合
-    appendOperator('**9');
-  }
-});
-</script>
+    function handleEquals() {
+      var expression = input.value;
+      while (['+', '-', '*', '/'].includes(expression.slice(-1))) {
+        expression = expression.slice(0, -1);
+      }
+      input.value = expression;
+      calculateResult();
+    }
+
+    document.addEventListener('keydown', function(event) {
+      var key = event.key;  
+      var shift = event.shiftKey; 
+      if (!isNaN(key)) {
+        appendNumber(key);
+      } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        appendOperator(key);
+      } else if (key === ':') {
+        appendOperator('*');
+      } else if (key === ';') {
+        appendOperator('+');
+      } else if (key === '/') {
+        appendOperator('/');
+      } else if (key === 'ー') {
+        appendOperator('-');
+      } else if (key === 'Enter') {
+        handleEquals();
+      } else if (key === 'Backspace') {
+        input.value = input.value.slice(0, -1);
+      } else if (key === 'c') {
+        clearInput();
+      } else if (key === 'C' && event.ctrlKey) {
+        copyResult();
+      } else if (shift && key === 'S') {
+        appendOperator('Math.sin(');
+      } else if (shift && key === 'C') {
+        appendOperator('Math.cos(');
+      } else if (shift && key === 'T') {
+        appendOperator('Math.tan(');
+      } else if (shift && key === 'L') {
+        appendOperator('Math.log(');
+      } else if (shift && key === 'R') {
+        appendOperator('Math.sqrt(');
+      } else if (shift && key === '"') {
+        appendOperator('**2');
+      } else if (shift && key === '#') {
+        appendOperator('**3');
+      } else if (shift && key === '$') {
+        appendOperator('**4');
+      } else if (shift && key === '%') {
+        appendOperator('**5');
+      } else if (shift && key === '&') {
+        appendOperator('**6');
+      } else if (shift && key === "'") {
+        appendOperator('**7');
+      } else if (shift && key === '(') {
+        appendOperator('**8');
+      } else if (shift && key === ')') {
+        appendOperator('**9');
+      }
+    });
+
+    // 入力が変更されたときに、計算式の一番後ろが見えるようにスクロールする
+    input.addEventListener('input', function() {
+      input.scrollLeft = input.scrollWidth;
+    });
+  </script>
 </body>
 </html>
