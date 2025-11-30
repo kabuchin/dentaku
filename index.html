@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+  <meta charset="UTF-8">
   <link rel="icon" href="icon.ico" type="image/x-icon" />
   <title>電卓アプリ</title>
   <style>
@@ -91,19 +92,35 @@
     <p style="font-size: small; text-align: right;">Copyright© <a href="https://github.com/kabuchin">Kabuchin</a> All rights reserved.</p>
   </div>
   <script>
-    var input = document.getElementById('result');
+    const input = document.getElementById('result');
+
+    // 演算子かどうかをチェックするヘルパー関数
+    const OPERATORS = ['+', '-', '*', '/'];
+    const MATH_FUNCTIONS = ['Math.sqrt(', 'Math.sin(', 'Math.cos(', 'Math.tan(', 'Math.log('];
+
+    function isOperator(char) {
+      return OPERATORS.includes(char);
+    }
 
     function appendNumber(number) {
       input.value += number;
     }
 
     function appendOperator(operator) {
-      if (operator === 'Math.sqrt(' || operator === 'Math.sin(' || operator === 'Math.cos(' || operator === 'Math.tan(' || operator === 'Math.log(') {
+      if (MATH_FUNCTIONS.includes(operator)) {
         input.value += operator;
       } else if (operator === '^2' || operator === '^3') {
         input.value += '**' + operator.slice(1);
+      } else if (operator === ')') {
+        // 閉じ括弧は常に追加可能
+        input.value += operator;
+      } else if (operator.startsWith('**')) {
+        // べき乗演算子
+        input.value += operator;
       } else {
-        if (input.value.slice(-1) !== '+' && input.value.slice(-1) !== '-' && input.value.slice(-1) !== '*' && input.value.slice(-1) !== '/' && input.value.slice(-1) !== '(' && input.value.slice(-1) !== ')') {
+        // 通常の演算子は、末尾が演算子や括弧でない場合のみ追加
+        const lastChar = input.value.slice(-1);
+        if (!isOperator(lastChar) && lastChar !== '(' && lastChar !== ')') {
           input.value += operator;
         }
       }
@@ -115,14 +132,14 @@
 
     function calculateResult() {
       try {
-        var expression = input.value;
-        if (expression.slice(-1) === '+' || expression.slice(-1) === '-' || expression.slice(-1) === '*' || expression.slice(-1) === '/') {
+        let expression = input.value;
+        if (isOperator(expression.slice(-1))) {
           throw new SyntaxError('Unexpected end of input');
         }
         if (expression.includes('√')) {
           expression = expression.replace(/√/g, 'Math.sqrt(') + ')';
         }
-        var result = eval(expression.replace('^2', '**2').replace('^3', '**3'));
+        const result = eval(expression.replace(/\^2/g, '**2').replace(/\^3/g, '**3'));
         input.value = result;
       } catch (error) {
         input.value = 'エラー: ' + error.message;
@@ -136,8 +153,8 @@
     }
 
     function handleEquals() {
-      var expression = input.value;
-      while (['+', '-', '*', '/'].includes(expression.slice(-1))) {
+      let expression = input.value;
+      while (isOperator(expression.slice(-1))) {
         expression = expression.slice(0, -1);
       }
       input.value = expression;
@@ -145,27 +162,24 @@
     }
 
     document.addEventListener('keydown', function(event) {
-      var key = event.key;  
-      var shift = event.shiftKey; 
-      if (!isNaN(key)) {
+      const key = event.key;
+      const shift = event.shiftKey;
+
+      if (!isNaN(key) && key !== ' ') {
         appendNumber(key);
-      } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+      } else if (isOperator(key)) {
         appendOperator(key);
       } else if (key === ':') {
         appendOperator('*');
       } else if (key === ';') {
         appendOperator('+');
-      } else if (key === '/') {
-        appendOperator('/');
       } else if (key === 'ー') {
         appendOperator('-');
       } else if (key === 'Enter') {
         handleEquals();
       } else if (key === 'Backspace') {
         input.value = input.value.slice(0, -1);
-      } else if (key === 'c') {
-        clearInput();
-      } else if (key === 'C' && event.ctrlKey) {
+      } else if (key === 'c' && !shift) {
         copyResult();
       } else if (shift && key === 'S') {
         appendOperator('Math.sin(');
